@@ -1,9 +1,9 @@
 # coppr
-<center>
-<img src="./splashscreen/icon.svg" alt="alt text" width="200" height="200"/>
-
+<p align="center">
+<img src="./splashscreen/icon.svg" style="text-align:center" alt="alt text" width="200" height="200"/>
+  
 Un interpretador de pseudo código en español, inspirado en PSeInt y basado en [electron-react-redux-boilerplate](electron-react-redux-boilerplate)
-</center>
+</p>
 
 ## Quick start
 
