@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 export default class LoggedIn extends Component {
   render() {
@@ -6,6 +6,6 @@ export default class LoggedIn extends Component {
       <div>
         <h2>Logged in as {this.props.user.username}</h2>
       </div>
-    );
+    )
   }
 }
