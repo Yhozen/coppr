@@ -48,7 +48,7 @@ app.on('ready', async () => {
     height: 800,
     minWidth: 640,
     minHeight: 480,
-    show: false,
+    show: false
   }
   mainWindow = Splashscreen.initSplashScreen({
       windowOpts: windowOptions,
