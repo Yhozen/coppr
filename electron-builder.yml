@@ -27,11 +27,14 @@ dmg:
 mac:
   target: dmg
   category: public.app-category.tools
+  icon: splashscreen/icon.png
 
 win:
   target: nsis
+  icon: splashscreen/icon.png
 
 linux:
   target:
     - deb
     - AppImage
+  icon: splashscreen/icon.png

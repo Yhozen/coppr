@@ -9,13 +9,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  const user = bindActionCreators(userActions, dispatch)
-  return {
-    onLogin: (data) => {
-      user.login(data)
-      dispatch(push('/loggedin'))
-    }
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

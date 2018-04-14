@@ -54,11 +54,11 @@ app.on('ready', async () => {
       windowOpts: windowOptions,
       templateUrl: path.join(__dirname, "../splashscreen", "icon.svg"),
       delay: 0, // force show immediately since example will load fast
-      minVisible: 1000, // show for 1.5s so example is obvious
+      minVisible: 1500, // show for 1.5s so example is obvious
       splashScreenOpts: {
           height: 500,
           width: 500,
-          transparent: true,
+          transparent: false,
       },
   })
 

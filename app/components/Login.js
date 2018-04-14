@@ -2,33 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export default class Login extends Component {
-  static propTypes = {
-    onLogin: PropTypes.func.isRequired
-  }
-
-  state = {
-    username: ''
-  }
-
-  handleLogin = () => {
-    this.props.onLogin({
-      username: this.state.username,
-      loggedIn: true
-    })
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      username: e.target.value
-    })
-  }
-
   render() {
     return (
-      <div>
-        <h2>Login</h2>
-        <input onChange={this.handleChange} type="text" value={this.state.username} />
-        <button onClick={this.handleLogin}>Log In</button>
+      <div className="flexgrid">
+        <div className="spacetool">
+         <ul id="toolbar">
+          <li><a href="default.asp">Home</a></li>
+          <li><a href="news.asp">News</a></li>
+          <li><a href="contact.asp">Contact</a></li>
+          <li><a href="about.asp">About</a></li>
+          </ul> 
+        </div>
+        <div className="rest">
+          <h2>Login</h2>
+        </div>
       </div>
     )
   }
