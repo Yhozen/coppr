@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Sortable from 'sortablejs'
 import PropTypes from 'prop-types'
 import fs from 'fs-extra'
+import CodeEditor from './CodeEditor'
 
 const files = [ 'home.js', 'news.js', 'contact.js', 'about.js' ]
 const open = [ 'Google', 'Apple', 'Facebook', 'ChromeStackoverflow', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow']
@@ -29,12 +30,15 @@ const OpenTabs = props => {
     </div>
   )
 }
+
+
 export default class Login extends Component {
   constructor() {
     super()
-    this.state = {
-      read: []
-    }
+    this.state = {file: null}
+  }
+  componentWillMount () {
+    this.read()
   }
   componentDidMount () {
     const toolbar = document.getElementById('toolbar')
@@ -42,11 +46,10 @@ export default class Login extends Component {
     Sortable.create(toolbar)
     Sortable.create(opentabs)
     opentabs.addEventListener("mousewheel", mouseWheelEvt)
-    this.read()
   }
   async read () {
     const file = await fs.readFile('/home/garox/Documentos/coppr/app/main.styl', 'utf-8')
-    this.setState({read: file.split(/\r\n|\r|\n/)})
+    this.setState({file})
   }
   render () {
     return (
@@ -54,11 +57,13 @@ export default class Login extends Component {
       <Toolbar/>
       <div id="right">
       <OpenTabs/>
+      {/*
       <div className='writeSection'>
-        <pre> {this.state.read.map((line,i) => (<span key={i}>{line}</span>))} </pre>
+        <pre> {this.state.read.map((line,i) => (<span contentEditable key={i}>{line}</span>))} </pre>
       </div>
+      */}
+      <CodeEditor file={this.state.file}/>
       </div>
-
       </div>
     )
   }
