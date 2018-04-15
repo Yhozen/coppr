@@ -30,10 +30,11 @@ const OpenTabs = props => {
 }
 export default class Login extends Component {
   componentDidMount() {
-    var toolbar = document.getElementById('toolbar')
-    var sortable = Sortable.create(toolbar)
-    var opentabs = document.getElementById('opentabs')
-    var sortable = Sortable.create(opentabs)
+    const toolbar = document.getElementById('toolbar')
+    const opentabs = document.getElementById('opentabs')
+    Sortable.create(toolbar)
+    Sortable.create(opentabs)
+    opentabs.addEventListener("mousewheel", mouseWheelEvt)
   }
   render() {
     return (
@@ -49,4 +50,8 @@ export default class Login extends Component {
       </div>
     )
   }
+}
+
+function mouseWheelEvt ({deltaY, target}) {
+  target.parentElement.scrollLeft += deltaY
 }
