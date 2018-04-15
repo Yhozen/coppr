@@ -67,16 +67,18 @@ body, html
         margin 0
         max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
         overflow auto
-        counter-reset: line;
+        counter-reset line
+        &:first-line 
+            line-height 0px
         span 
-            display: block;
+            display block
             &:before 
-                counter-increment: line;
-                content: counter(line);
-                display: inline-block;
+                counter-increment: line
+                content counter(line)
+                display inline-block
                 color rgba(white, 0.4)
-                padding: 0 .5em;
-                margin-right: .5em;
+                padding 0 .5em
+                margin-right .5em
                 width 25px
                 text-align right 
 
