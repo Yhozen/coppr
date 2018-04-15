@@ -33,7 +33,7 @@ export default class Login extends Component {
   constructor() {
     super()
     this.state = {
-      read: ''
+      read: []
     }
   }
   componentDidMount () {
@@ -46,8 +46,7 @@ export default class Login extends Component {
   }
   async read () {
     const file = await fs.readFile('/home/garox/Documentos/coppr/app/main.styl', 'utf-8')
-    this.setState({read:file})
-    console.log(file)
+    this.setState({read: file.split(/\r\n|\r|\n/)})
   }
   render () {
     return (
@@ -56,7 +55,7 @@ export default class Login extends Component {
       <div id="right">
       <OpenTabs/>
       <div className='writeSection'>
-        <pre> {this.state.read} </pre>
+        <pre> {this.state.read.map((line,i) => (<span key={i}>{line}</span>))} </pre>
       </div>
       </div>
 

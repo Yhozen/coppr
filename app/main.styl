@@ -10,8 +10,6 @@ body, html
     padding 0
     box-sizing border-box
     font-family 'Source Sans Pro', sans-serif
-
-body 
     background #232323
 
 #toolbar 
@@ -69,6 +67,18 @@ body
         margin 0
         max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
         overflow auto
+        counter-reset: line;
+        span 
+            display: block;
+            &:before 
+                counter-increment: line;
+                content: counter(line);
+                display: inline-block;
+                color rgba(white, 0.4)
+                padding: 0 .5em;
+                margin-right: .5em;
+                width 25px
+                text-align right 
 
 ::-webkit-scrollbar 
     width 10px
