@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Sortable from 'sortablejs'
 import PropTypes from 'prop-types'
+import fs from 'fs-extra'
 
 const files = [ 'home.js', 'news.js', 'contact.js', 'about.js' ]
 const open = [ 'Google', 'Apple', 'Facebook', 'ChromeStackoverflow', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow']
@@ -29,21 +30,33 @@ const OpenTabs = props => {
   )
 }
 export default class Login extends Component {
-  componentDidMount() {
+  constructor() {
+    super()
+    this.state = {
+      read: ''
+    }
+  }
+  componentDidMount () {
     const toolbar = document.getElementById('toolbar')
     const opentabs = document.getElementById('opentabs')
     Sortable.create(toolbar)
     Sortable.create(opentabs)
     opentabs.addEventListener("mousewheel", mouseWheelEvt)
+    this.read()
   }
-  render() {
+  async read () {
+    const file = await fs.readFile('/home/garox/Documentos/coppr/app/main.styl', 'utf-8')
+    this.setState({read:file})
+    console.log(file)
+  }
+  render () {
     return (
       <div className="flexgrid">
       <Toolbar/>
       <div id="right">
       <OpenTabs/>
       <div className='writeSection'>
-         <h2>Login</h2>
+        <pre> {this.state.read} </pre>
       </div>
       </div>
 
@@ -52,8 +65,10 @@ export default class Login extends Component {
   }
 }
 
-function mouseWheelEvt ({deltaY, target}) {
+function mouseWheelEvt (event) {
+  let { target, deltaY, preventDefault } = event
   target.parentElement.scrollLeft += deltaY
+  event.preventDefault()
 }
 function clickTab ({target}) {
   const previous = document.getElementsByClassName('active')

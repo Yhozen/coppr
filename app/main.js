@@ -1,6 +1,6 @@
 import path from 'path'
 import url from 'url'
-import { app, crashReporter, BrowserWindow, Menu } from 'electron'
+import { app, crashReporter, BrowserWindow, Menu, ipcMain } from 'electron'
 import * as Splashscreen from "@trodi/electron-splashscreen"
 
 const isDevelopment = (process.env.NODE_ENV === 'development')
