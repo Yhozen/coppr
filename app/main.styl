@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro')
+*
+    box-sizing border-box
+body, html 
+    margin 0
+    padding 0
+    box-sizing border-box
+    font-family 'Source Sans Pro', sans-serif
+
+body 
+    background #232323
+
+#toolbar 
+    list-style-type none
+    margin 0
+    padding 0
+    min-width 200px
+    background-color #333333
+    height 100% /* Full height */
+    position fixed /* Make it stick, even on scroll */
+    overflow auto /* Enable scrolling if the sidenav has too much content */
+    li
+        padding 5px 30px
+        color white
+        user-select none
+        cursor default
+        &:hover
+            background rgba(255, 75, 4, 0.856)
+
+#right
+    width -webkit-calc(100% - 200px)
+    margin-left 200px
+
+#opentabs
+    display flex 
+    white-space nowrap
+    overflow-x auto
+    &::-webkit-scrollbar 
+        display none
+    .tab
+        flex: 0 0 auto;
+        overflow hidden
+        text-overflow ellipsis
+        width 130px
+        height 40px
+        padding 10px
+        border-right 1px solid black 
+        user-select none
+        cursor default
+        color white
+  /*
+    overflow hidden 
+    text-overflow ellipsis
+    user-select none
+    cursor default
+    color white
+    border-right 1px solid black 
+    width 150px
+    height 20px
+    padding 10px
+    &:last-child 
+        margin-right 0*/
+
+
+.flexgrid 
+    display flex
+
+.writeSection
+    padding 0 20px
