@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro')
+@import url('./FiraCode/fira_code.css')
 
 toolbarWidth = 200px
 toolbarHeight = 40px
@@ -19,7 +20,7 @@ body, html
     min-width toolbarWidth
     background-color #333333
     height 100% /* Full height */
-    position fixed /* Make it stick, even on scroll */
+    position fixed /* Make it stick, even on scroll =>*/
     overflow auto /* Enable scrolling if the sidenav has too much content */
     li
         padding 5px 30px
@@ -62,7 +63,7 @@ body, html
     padding 0
     height "-webkit-calc(100% - %s)" % toolbarHeight
     pre
-        font-family 'Source Sans Pro', sans-serif
+        font-family: 'Fira Code', monospace;
         color white
         margin 0
         max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
