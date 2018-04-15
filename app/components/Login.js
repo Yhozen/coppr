@@ -22,7 +22,7 @@ const OpenTabs = props => {
     <div id="opentabs">
       {open.map(title => {
           return (
-            <div key={Math.random()} className="tab">{title}</div>
+            <div key={Math.random()} className="tab" onClick={clickTab}>{title}</div>
           )
         })}
     </div>
@@ -54,4 +54,9 @@ export default class Login extends Component {
 
 function mouseWheelEvt ({deltaY, target}) {
   target.parentElement.scrollLeft += deltaY
+}
+function clickTab ({target}) {
+  const previous = document.getElementsByClassName('active')
+  if (!!previous.length) previous[0].classList.remove('active')
+  target.classList.add('active')
 }
