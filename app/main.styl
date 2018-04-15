@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro')
 
+toolbarWidth = 200px
+toolbarHeight = 40px
+
 *
     box-sizing border-box
 body, html 
@@ -15,7 +18,7 @@ body
     list-style-type none
     margin 0
     padding 0
-    min-width 200px
+    min-width toolbarWidth
     background-color #333333
     height 100% /* Full height */
     position fixed /* Make it stick, even on scroll */
@@ -29,8 +32,9 @@ body
             background rgba(255, 75, 4, 0.856)
 
 #right
-    width -webkit-calc(100% - 200px)
-    margin-left 200px
+    width "-webkit-calc(100% - %s)" % toolbarWidth
+    margin-left toolbarWidth
+    height 100%
 
 #opentabs
     display flex 
@@ -43,7 +47,7 @@ body
         overflow hidden
         text-overflow ellipsis
         width 130px
-        height 40px
+        height toolbarHeight
         padding 10px
         border-right 1px solid black 
         user-select none
@@ -58,10 +62,22 @@ body
 
 .writeSection
     padding 0
+    height "-webkit-calc(100% - %s)" % toolbarHeight
     pre
-        font-size 14
         font-family 'Source Sans Pro', sans-serif
         color white
         margin 0
-        overflow auto
+        max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
+        overflow overlay
+        &::-webkit-scrollbar
+            display none
 
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
