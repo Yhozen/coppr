@@ -76,7 +76,6 @@ import Editor from 'draft-js-plugins-editor'
 import fs from 'fs-extra'
 import path from 'path'
 
-
 import createCodeEditorPlugin from 'draft-js-code-editor-plugin'
 import createPrismPlugin from 'draft-js-prism-plugin'
 //import PrismDecorator from 'draft-js-prism'
@@ -91,41 +90,37 @@ const prismPlugin = createPrismPlugin({
   });
 
 export default class CodeEditor extends Component {
-  state = {
-    editorState: EditorState.createEmpty(),
-  }
-  componentDidMount = () => {
-      this.init()
-  }
+    state = {
+        editorState: EditorState.createEmpty(),
+    }
+    componentDidMount = () => {
+        this.init()
+    }
 
-  onChange = (editorState) => {
-    this.setState({
-      editorState,          
-    })
-  }
-  
-  init = async () => {
-    const file = await fs.readFile(path.dirname(__filename) + '/../../app/main.js', 'utf-8')
-    var contentState = Draft.convertFromRaw({
-        entityMap: {},
-        blocks: [{
-          type: 'code-block',
-          text: file,
-          data: {
-            language: 'javascript'
-          }
-        }]
-      })
-      const editorState = EditorState.createWithContent(contentState)
-      this.setState({editorState})
-  }
+    onChange = (editorState) => this.setState({editorState})
+    
+    init = async () => {
+        const file = await fs.readFile(path.dirname(__filename) + '/../../app/main.js', 'utf-8')
+        var contentState = Draft.convertFromRaw({
+            entityMap: {},
+            blocks: [{
+            type: 'code-block',
+            text: file,
+            data: {
+                language: 'javascript'
+            }
+            }]
+        })
+        const editorState = EditorState.createWithContent(contentState)
+        this.setState({editorState})
+    }
 
   render() {
     return (
       <Editor
         editorState={this.state.editorState}
         onChange={this.onChange}
-        plugins={[codePlugin,prismPlugin]}
+        plugins={[codePlugin]}
       />
     );  
   }
