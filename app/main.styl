@@ -68,12 +68,8 @@ body, html
     .DraftEditor-editorContainer
         max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
         overflow auto
-    pre
-        font-family: 'Fira Code', monospace;
-        margin 0
-        color #a2e4ff
-        /*
-        span 
+        counter-reset: line;
+        .public-DraftStyleDefault-block
             &:before 
                 counter-increment: line
                 content counter(line)
@@ -82,7 +78,16 @@ body, html
                 padding 0 .5em
                 margin-right .5em
                 width 25px
-                text-align right */
+                text-align right 
+    pre
+        font-family: 'Fira Code', monospace;
+        margin 0
+        color #a2e4ff
+
+    
+    
+
+
 
 ::-webkit-scrollbar 
     width 10px
