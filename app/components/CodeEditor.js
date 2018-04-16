@@ -86,7 +86,8 @@ import Prism from 'prismjs'
 const codePlugin = createCodeEditorPlugin()
 const prismPlugin = createPrismPlugin({
     // It's required to provide your own instance of Prism
-    prism: Prism
+    prism: Prism,
+    defaultSyntax: 'javascript'
   });
 
 export default class CodeEditor extends Component {
@@ -109,7 +110,10 @@ export default class CodeEditor extends Component {
         entityMap: {},
         blocks: [{
           type: 'code-block',
-          text: file
+          text: file,
+          data: {
+            language: 'javascript'
+          }
         }]
       })
       const editorState = EditorState.createWithContent(contentState)
