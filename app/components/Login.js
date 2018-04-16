@@ -4,20 +4,6 @@ import Toolbar from './Toolbar'
 import Sortable from 'sortablejs'
 import CodeEditor from './CodeEditor'
 
-// const files = [ 'home.js', 'news.js', 'contact.js', 'about.js' ]
-
-// const Toolbar = props => {
-//   return (
-//     <ul id="toolbar">
-//         {files.map(file => {
-//           return (
-//           <li key={Math.random()}><a>{file}</a></li>
-//           )
-//         })}
-//     </ul> 
-//   )
-// }
-
 const open = [ 'Google', 'Apple', 'Facebook', 'ChromeStackoverflow', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow']
 
 const OpenTabs = props => {

@@ -63,15 +63,15 @@ body, html
 .DraftEditor-root
     padding 0
     height "-webkit-calc(100% - %s)" % toolbarHeight
-    width "-webkit-calc(100% - %s)" % 25px
     .public-DraftStyleDefault-block
         white-space pre
-    pre
-        font-family: 'Fira Code', monospace;
+    .DraftEditor-editorContainer
         max-height  "-webkit-calc(100vh - %s)" % toolbarHeight
         overflow auto
-        color white
+    pre
+        font-family: 'Fira Code', monospace;
         margin 0
+        color #a2e4ff
         /*
         span 
             &:before 

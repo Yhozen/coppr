@@ -1912,6 +1912,12 @@ draft-js-prism@^1.0.6:
     extend "^3.0.0"
     immutable "*"
 
+draft-js-single-line-plugin@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/draft-js-single-line-plugin/-/draft-js-single-line-plugin-2.0.1.tgz#3aea1b100b1562d7ef3d5d02e73190da12953857"
+  dependencies:
+    immutable "^3.8.1"
+
 draft-js-undo-plugin@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/draft-js-undo-plugin/-/draft-js-undo-plugin-2.0.1.tgz#b8ea344657f8e423ebffd403cc2f8787ef626089"
@@ -2920,7 +2926,7 @@ ignore@^3.3.3:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
-immutable@*, immutable@3.8.2, immutable@3.x, immutable@^3.7.6:
+immutable@*, immutable@3.8.2, immutable@3.x, immutable@^3.7.6, immutable@^3.8.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
