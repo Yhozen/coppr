@@ -1,32 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
-import { createMemoryHistory, History } from 'history'
-import routes from './routes'
-import configureStore from './store'
-import { Store } from 'redux'
-import './main.styl'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { App } from './App';
+import './index.css';
 
-const syncHistoryWithStore = (store: Store, history: History): void => {
-  const { routing } = store.getState()
-  if(routing && routing.location) {
-    history.replace(routing.location)
-  }
+const rootElement = document.getElementById('app');
+
+if (!rootElement) {
+  throw new Error('Root element not found');
 }
 
-const initialState = {}
-const routerHistory = createMemoryHistory()
-const store = configureStore(initialState, routerHistory)
-syncHistoryWithStore(store, routerHistory)
+const root = ReactDOM.createRoot(rootElement);
 
-const rootElement = document.getElementById('app')
-
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={routerHistory}>
-      {routes}
-    </ConnectedRouter>
-  </Provider>,
-  rootElement
-)
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
