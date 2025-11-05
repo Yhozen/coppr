@@ -20,7 +20,7 @@ const routerHistory = createMemoryHistory()
 const store = configureStore(initialState, routerHistory)
 syncHistoryWithStore(store, routerHistory)
 
-const rootElement = document.querySelector(document.currentScript!.getAttribute('data-container')!)
+const rootElement = document.getElementById('app')
 
 ReactDOM.render(
   <Provider store={store}>
