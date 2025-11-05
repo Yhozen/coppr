@@ -17,6 +17,7 @@
 name: Build Tauri App
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       platform:
