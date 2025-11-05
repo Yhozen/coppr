@@ -1,244 +1,287 @@
-# Coppr
+# Coppr - Code-First DAW
 
 <p align="center">
 <img src="./splashscreen/icon.svg" style="text-align:center" alt="Coppr Logo" width="200" height="200"/>
 </p>
 
-Un interpretador de pseudo código en español, inspirado en PSeInt. Ahora construido con Tauri para mejor rendimiento y menor tamaño de aplicación.
+**A code-first Digital Audio Workstation where patterns are written in code and enhanced with visual tools.**
 
-## Tecnologías
+Coppr flips the traditional DAW workflow: instead of clicking through menus, you **write music patterns in code** using [Strudel](https://strudel.cc/), then use visual tools for sound design, mixing, and arrangement.
 
-- **Frontend**: React + Redux + TypeScript
-- **Backend**: Tauri (Rust)
-- **Build**: Vite
-- **Code Editor**: Draft.js con syntax highlighting
+## 🎯 Philosophy
 
-## Instalación
+**Code is the primary creative interface. Visual tools enhance it.**
 
-### Prerequisitos
+- Write patterns faster than clicking
+- Version control your music (Git-friendly)
+- Live coding performances
+- Generative music with procedural patterns
+- Traditional DAW tools when you need them
+
+## ✨ Features
+
+### 🎛️ Dual Workflow
+
+- **Code View**: Write Strudel patterns with Monaco editor (VS Code's editor)
+- **Graph View**: Visual modular patching with ReactFlow
+- **Timeline View**: Traditional DAW arrangement
+- **Mixer View**: Professional mixing console
+
+### 🎵 Pattern-Based Composition
+
+```javascript
+// Write music like this
+s("bd sd, ~ cp, [hh hh]*4")
+  .euclid(3, 8)
+  .speed(2)
+  .room(0.5)
+```
+
+Powered by **Strudel** - the pattern language from TidalCycles, adapted for JavaScript.
+
+### 🧩 Modular Block System
+
+- Drag-and-drop blocks (patterns, instruments, effects)
+- Patch-cable connections like modular synths
+- Real-time audio engine updates
+- Inspect and edit properties in side panel
+
+### 🥁 Built-In Instruments & Effects
+
+**Instruments:**
+- Drum synthesizers (kick, snare, hi-hat)
+- Sample players with pitch/speed control
+- Synthesizers (FM, subtractive, additive)
+
+**Effects:**
+- Filter, Reverb, Delay
+- Distortion, Compressor
+- Chorus, Flanger, Phaser
+- And more...
+
+### 🎚️ Professional Tools
+
+- Multi-track timeline with clip arrangement
+- Mixer with send/return buses
+- Automation lanes
+- MIDI support (input/output/clock sync)
+- Audio recording & export
+- Sample library management
+
+## 🚀 Quick Start
+
+### Prerequisites
 
 - Node.js 18+
-- Rust (para desarrollo): https://rustup.rs/
+- Rust (for development): https://rustup.rs/
 
-### Clonar el repositorio
+### Installation
 
 ```bash
+# Clone repository
 git clone https://github.com/Yhozen/coppr.git
 cd coppr
-```
 
-### Instalar dependencias
-
-```bash
+# Install dependencies
 npm install
-```
 
-## Desarrollo
-
-### Modo desarrollo
-
-```bash
+# Run development mode
 npm run tauri:dev
 ```
 
-Esto iniciará:
-1. El servidor de desarrollo Vite (frontend)
-2. La aplicación Tauri con hot-reload
+### Create Your First Pattern
 
-### Solo frontend
+1. Open Coppr
+2. Click "New Pattern" block
+3. Write: `s("bd sd hh sd")`
+4. Press Space to play
+5. Hear your beat! 🎉
 
-```bash
-npm run dev
+## 📚 Documentation
+
+- **[Architecture Plan](./ARCHITECTURE.md)** - Technical design and roadmap
+- **[Strudel Learn](https://strudel.cc/learn/)** - Pattern language tutorial
+- **[macOS Installation](./MACOS_INSTALL.md)** - Fix Gatekeeper issues
+
+## 🎓 Learn Strudel Patterns
+
+Strudel uses **mini-notation** for describing rhythms:
+
+```javascript
+// Basic pattern
+s("bd sd")              // kick, snare
+
+// With rests
+s("bd ~ sd ~")          // kick, (rest), snare, (rest)
+
+// Subdivisions
+s("[bd bd] sd")         // two kicks, then snare
+
+// Repetition
+s("bd*4")               // four kicks
+
+// Euclidean rhythms
+s("bd").euclid(3, 8)    // 3 hits distributed across 8 steps
+
+// Effects
+s("bd sd").speed(2).room(0.5)  // faster + reverb
+
+// Randomness
+s("bd sd").sometimes(x => x.speed(2))  // sometimes double speed
 ```
 
-Abre http://localhost:5173 en tu navegador.
-
-## Construcción (Build)
-
-### Construcción local
-
-```bash
-npm run tauri:build
-```
-
-Los archivos compilados estarán en `src-tauri/target/release/bundle/`
-
-### Construcción en GitHub Actions
-
-El proyecto tiene CI/CD configurado:
-- **Automático**: Builds de macOS en cada push
-- **Manual**: Ir a Actions > "Build Tauri App" > Run workflow
-
-## Instalación de la App
-
-### macOS
-
-#### Método 1: Remover atributo de cuarentena (Recomendado)
-
-Si ves el error "coppr is damaged and can't be opened", ejecuta:
-
-```bash
-# Navega a donde descargaste la app
-cd ~/Downloads  # o donde esté tu app
-
-# Opción A: Si descargaste el .app
-xattr -cr coppr.app
-open coppr.app
-
-# Opción B: Si descargaste el .dmg
-xattr -cr coppr_*.dmg
-open coppr_*.dmg
-# Luego arrastra coppr.app a Applications y ejecuta:
-xattr -cr /Applications/coppr.app
-```
-
-#### Método 2: Permitir en Preferencias del Sistema
-
-1. Intenta abrir la app (aparecerá el error)
-2. Ve a **Preferencias del Sistema** > **Seguridad y Privacidad**
-3. Haz clic en **"Abrir de todas formas"**
-4. Confirma en el diálogo que aparece
-
-#### Método 3: Desactivar Gatekeeper temporalmente (NO recomendado para producción)
-
-```bash
-# Desactivar Gatekeeper
-sudo spctl --master-disable
-
-# Abrir la app
-open coppr.app
-
-# IMPORTANTE: Reactivar Gatekeeper después
-sudo spctl --master-enable
-```
-
-### Linux
-
-#### Debian/Ubuntu (.deb)
-
-```bash
-sudo dpkg -i coppr_*.deb
-# Si hay problemas con dependencias:
-sudo apt-get install -f
-```
-
-#### AppImage
-
-```bash
-chmod +x coppr_*.AppImage
-./coppr_*.AppImage
-```
-
-### Windows
-
-#### Instalador MSI
-
-1. Doble clic en `coppr_*_x64_en-US.msi`
-2. Sigue el asistente de instalación
-
-#### Instalador NSIS
-
-1. Doble clic en `coppr_*_x64-setup.exe`
-2. Sigue el asistente de instalación
-
-**Nota**: Es posible que Windows SmartScreen muestre una advertencia. Haz clic en "Más información" y luego "Ejecutar de todas formas".
-
-## DevTools
-
-Abre las DevTools del navegador:
-
-- **macOS**: <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd> o <kbd>F12</kbd>
-- **Linux**: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> o <kbd>F12</kbd>
-- **Windows**: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> o <kbd>F12</kbd>
-
-## Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 coppr/
-├── src/                    # Código fuente del frontend
-│   ├── components/        # Componentes React
-│   ├── containers/        # Contenedores conectados a Redux
-│   ├── actions/          # Redux actions
-│   ├── reducers/         # Redux reducers
-│   └── main.tsx          # Punto de entrada
-├── src-tauri/            # Código Rust de Tauri
-│   ├── src/             # Código fuente Rust
-│   ├── icons/           # Iconos de la aplicación
-│   └── tauri.conf.json  # Configuración Tauri
-├── dist/                 # Build del frontend (generado)
-├── index.html           # HTML principal
-├── vite.config.js       # Configuración Vite
-└── package.json         # Dependencias y scripts
+├── src/
+│   ├── components/
+│   │   ├── blocks/          # Pattern, Instrument, Effect blocks
+│   │   ├── views/           # Graph, Timeline, Mixer, Code views
+│   │   ├── editors/         # Strudel editor, Piano roll, etc.
+│   │   └── transport/       # Playback controls
+│   ├── engine/              # Audio engine (Strudel + Tone.js)
+│   ├── store/               # State management (Zustand)
+│   └── lib/                 # Utilities, Tauri APIs
+├── src-tauri/               # Rust backend
+└── ARCHITECTURE.md          # Detailed technical plan
 ```
 
-## Scripts Disponibles
+## 🎹 Keyboard Shortcuts
 
-- `npm run dev` - Servidor de desarrollo Vite
-- `npm run build` - Construir frontend
-- `npm run tauri:dev` - Modo desarrollo con Tauri
-- `npm run tauri:build` - Construir aplicación Tauri
-- `npm run tauri` - Ejecutar CLI de Tauri
+| Shortcut | Action |
+|----------|--------|
+| `Space` | Play/Pause |
+| `Cmd/Ctrl+S` | Save project |
+| `Cmd/Ctrl+E` | Export audio |
+| `Cmd/Ctrl+N` | New pattern block |
+| `Cmd/Ctrl+/` | Command palette |
+| `Tab` | Switch views |
+| `F12` | DevTools |
 
-## Solución de Problemas
+## 🛠️ Technology Stack
 
-### "Error loading Python lib" en macOS
+- **Frontend**: React + TypeScript + Vite
+- **Backend**: Tauri (Rust)
+- **Audio**: Strudel + Tone.js + Web Audio API
+- **UI**: shadcn/ui + TailwindCSS
+- **Graph**: ReactFlow
+- **Editor**: Monaco Editor (VS Code)
+- **Storage**: IndexedDB + Tauri FS
 
-Esto es normal en Tauri y no afecta la funcionalidad. Es un mensaje de debug del sistema.
-
-### La app no abre en macOS
-
-Ver sección [Instalación de la App > macOS](#macos) arriba.
-
-### Errores de compilación Rust
+## 📦 Build
 
 ```bash
-# Actualizar Rust
-rustup update
+# Development
+npm run tauri:dev
 
-# Limpiar cache de Cargo
-cd src-tauri
-cargo clean
-cd ..
-
-# Reintentar build
+# Production build
 npm run tauri:build
+
+# Output: src-tauri/target/release/bundle/
 ```
 
-### Errores de npm
+## 🎨 Screenshots
 
-```bash
-# Limpiar node_modules y reinstalar
-rm -rf node_modules package-lock.json
-npm install
-```
+*Coming soon - app is in active development*
 
-## Por Qué Tauri vs Electron
+## 🗺️ Roadmap
 
-Coppr migró de Electron a Tauri por varias razones:
+### ✅ Phase 1: Foundation (Current)
+- [x] Tauri + React setup
+- [x] TypeScript migration
+- [ ] Strudel integration
+- [ ] Monaco editor
+- [ ] Basic audio engine
 
-- **Tamaño**: Apps Tauri son ~10-20x más pequeñas
-- **Rendimiento**: Usa webview nativo en lugar de Chromium embebido
-- **Memoria**: Menor uso de RAM
-- **Seguridad**: Menor superficie de ataque
-- **Moderno**: Tooling moderno con Vite y Rust
+### 🚧 Phase 2: Core Features
+- [ ] Pattern blocks
+- [ ] Instrument library
+- [ ] Effect chains
+- [ ] ReactFlow graph view
 
-## Contribuir
+### 📅 Phase 3: DAW Features
+- [ ] Timeline view
+- [ ] Mixer view
+- [ ] MIDI support
+- [ ] Audio recording
 
-1. Fork el proyecto
-2. Crea una rama: `git checkout -b feature/nueva-caracteristica`
-3. Commit cambios: `git commit -am 'Agregar nueva característica'`
-4. Push: `git push origin feature/nueva-caracteristica`
-5. Abre un Pull Request
+### 🔮 Phase 4: Advanced
+- [ ] Automation lanes
+- [ ] Clip launcher (Ableton-style)
+- [ ] Collaborative editing
+- [ ] Plugin system
 
-## Licencia
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed milestones.
 
-MIT - Ver [LICENSE](LICENSE) para más detalles.
+## 🤝 Contributing
 
-## Autor
+Contributions welcome! Coppr is in early development.
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -am 'Add amazing feature'`
+4. Push: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 💡 Inspiration
+
+Coppr is inspired by:
+
+- **Strudel/TidalCycles** - Live coding music
+- **Sonic Pi** - Code-based music creation
+- **Ableton Live** - Session view and workflow
+- **VCV Rack** - Modular patching
+- **Renoise** - Tracker-based sequencing
+
+## 🎯 Why Coppr?
+
+### vs Traditional DAWs (Ableton, FL Studio, Logic)
+- ✅ Faster pattern creation with code
+- ✅ Git-friendly project files
+- ✅ Algorithmic/generative music
+- ✅ Live coding performances
+- ✅ Open source & free
+
+### vs Pure Code (Sonic Pi, TidalCycles)
+- ✅ Visual mixing/mastering tools
+- ✅ Timeline for arrangement
+- ✅ Mouse-based editing when needed
+- ✅ Native performance (Tauri)
+- ✅ Sample browser & management
+
+### vs Modular Synths (VCV Rack)
+- ✅ Code-based pattern generation
+- ✅ Faster prototyping
+- ✅ Text-based composition
+- ✅ Version control
+- ✅ Easier to share/collaborate
+
+## 📄 License
+
+MIT - See [LICENSE](LICENSE) for details.
+
+## 👤 Author
 
 Gabriel (garox) - gabriel@garox.org
 
-## Reconocimientos
+## 🙏 Acknowledgments
 
-- Inspirado en PSeInt
-- Basado originalmente en [electron-react-redux-boilerplate](https://github.com/jschr/electron-react-redux-boilerplate)
+- [Strudel](https://strudel.cc/) - Pattern language and inspiration
+- [Tone.js](https://tonejs.github.io/) - Web Audio framework
+- [Tauri](https://tauri.app/) - Native app framework
+- [ReactFlow](https://reactflow.dev/) - Node-based UI
+- [TidalCycles](https://tidalcycles.org/) - Original pattern language
+
+## 🔗 Links
+
+- **Website**: https://github.com/Yhozen/coppr
+- **Strudel**: https://strudel.cc/
+- **Discord**: *Coming soon*
+- **Tutorials**: *Coming soon*
+
+---
+
+**🚀 Coppr is in active development. Star the repo to follow progress!**
+
+**🎵 Make music with code. Mix with tools. Coppr.**
