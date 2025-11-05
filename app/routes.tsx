@@ -6,8 +6,7 @@ import LoggedInPage from './containers/LoggedInPage'
 
 export default (
   <Switch>
-    <Route exact path="/" component={LoginPage} /> 
-   
+    <Route exact path="/" component={LoginPage} />
   </Switch>
 )
-  // <Route exact path="/loggedin" component={LoggedInPage} />
+// <Route exact path="/loggedin" component={LoggedInPage} />

@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import LoggedIn from '../components/LoggedIn'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import userActions from '../actions/user'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   return state
 }
 
-const mapDispatchToProps = (dispatch) => { // eslint-disable-line no-unused-vars
+const mapDispatchToProps = (dispatch: Dispatch) => { // eslint-disable-line no-unused-vars
   return {}
 }
 

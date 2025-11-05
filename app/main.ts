@@ -1,24 +1,24 @@
 import path from 'path'
 import url from 'url'
-import { app, crashReporter, BrowserWindow, Menu, ipcMain } from 'electron'
+import { app, crashReporter, BrowserWindow, Menu, ipcMain, MenuItemConstructorOptions } from 'electron'
 import * as Splashscreen from "@trodi/electron-splashscreen"
 
-const isDevelopment = (process.env.NODE_ENV === 'development')
+const isDevelopment: boolean = (process.env.NODE_ENV === 'development')
 
-let mainWindow = null
-let forceQuit = false
+let mainWindow: BrowserWindow | null = null
+let forceQuit: boolean = false
 
-const installExtensions = async () => {
+const installExtensions = async (): Promise<void> => {
   const installer = require('electron-devtools-installer')
-  const extensions = [
+  const extensions: string[] = [
     'REACT_DEVELOPER_TOOLS',
     'REDUX_DEVTOOLS'
   ]
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS
+  const forceDownload: boolean = !!process.env.UPGRADE_EXTENSIONS
   for (const name of extensions) {
     try {
       await installer.default(installer[name], forceDownload)
-    } catch (e) {
+    } catch (e: any) {
       console.log(`Error installing ${name} extension: ${e.message}`)
     }
   }
@@ -43,8 +43,8 @@ app.on('ready', async () => {
   if (isDevelopment) {
     await installExtensions()
   }
-  const windowOptions = {
-    width: 1000, 
+  const windowOptions: Electron.BrowserWindowConstructorOptions = {
+    width: 1000,
     height: 800,
     minWidth: 640,
     minHeight: 480,
@@ -70,7 +70,9 @@ app.on('ready', async () => {
 
   // show window once on first load
   mainWindow.webContents.once('did-finish-load', () => {
-    mainWindow.show()
+    if (mainWindow) {
+      mainWindow.show()
+    }
   })
 
   mainWindow.webContents.on('did-finish-load', () => {
@@ -79,22 +81,24 @@ app.on('ready', async () => {
     // 2. Click on icon in dock should re-open the window
     // 3. ⌘+Q should close the window and quit the app
     if (process.platform === 'darwin') {
-      mainWindow.on('close', function (e) {
+      mainWindow!.on('close', function (e: Electron.Event) {
         if (!forceQuit) {
           e.preventDefault()
-          mainWindow.hide()
+          mainWindow!.hide()
         }
       })
 
       app.on('activate', () => {
-        mainWindow.show()
+        if (mainWindow) {
+          mainWindow.show()
+        }
       })
-      
+
       app.on('before-quit', () => {
         forceQuit = true
       })
     } else {
-      mainWindow.on('closed', () => {
+      mainWindow!.on('closed', () => {
         mainWindow = null
       })
     }
@@ -106,12 +110,15 @@ app.on('ready', async () => {
 
     // add inspect element on right click menu
     mainWindow.webContents.on('context-menu', (e, props) => {
-      Menu.buildFromTemplate([{
+      const menuTemplate: MenuItemConstructorOptions[] = [{
         label: 'Inspect element',
         click() {
-          mainWindow.inspectElement(props.x, props.y)
+          if (mainWindow) {
+            mainWindow.inspectElement(props.x, props.y)
+          }
         }
-      }]).popup(mainWindow)
+      }]
+      Menu.buildFromTemplate(menuTemplate).popup(mainWindow!)
     })
   }
 })

@@ -5,12 +5,12 @@ import browserSyncConnectUtils from 'browser-sync/dist/connect-utils'
 
 const bsync = browserSync.create()
 
-const getRootUrl = (options) => {
+const getRootUrl = (options: any): string => {
   const port = options.get('port')
   return `http://localhost:${port}`
 };
 
-const getClientUrl = (options) => {
+const getClientUrl = (options: any): string => {
   const pathname = browserSyncConnectUtils.clientScript(options)
   return getRootUrl(options) + pathname
 }
@@ -28,10 +28,10 @@ bsync.init({
     // Use the actual port here.
     domain: getRootUrl
   }
-}, (err, bs) => {
+}, (err: Error | null, bs: any) => {
   if (err) return console.error(err)
 
-  const child = spawn(electron, ['.', '--enable-logging'], {
+  const child = spawn(electron as any, ['.', '--enable-logging'], {
     env: {
       ...{
         NODE_ENV: 'development',

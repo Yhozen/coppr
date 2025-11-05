@@ -1,5 +1,5 @@
 import React, { Component  } from 'react'
-import Draft, { EditorState, RichUtils } from 'draft-js'
+import Draft, { EditorState, RichUtils, RawDraftContentState, ContentBlock } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import fs from 'fs-extra'
 import path from 'path'
@@ -16,41 +16,50 @@ const prismPlugin = createPrismPlugin({
     defaultSyntax: 'javascript'
   });
 
-export default class CodeEditor extends Component {
-    state = {
+interface CodeEditorState {
+    editorState: EditorState;
+}
+
+export default class CodeEditor extends Component<{}, CodeEditorState> {
+    state: CodeEditorState = {
         editorState: EditorState.createEmpty(),
     }
-    componentDidMount = () => this.init()
 
-    onChange = (editorState) => this.setState({editorState})
-    
-    init = async () => {
+    componentDidMount = (): void => {
+        this.init()
+    }
+
+    onChange = (editorState: EditorState): void => {
+        this.setState({editorState})
+    }
+
+    init = async (): Promise<void> => {
         const file = await fs.readFile(path.dirname(__filename) + '/../../app/main.js', 'utf-8')
         const blocks = file.split(/\r\n|\r|\n/).map(line => {
             return {
                 type: 'code-block',
-                text:line,
+                text: line,
                 data: {
                     language: 'javascript'
                 }
             }
         })
-        var contentState = Draft.convertFromRaw({
+        const contentState = Draft.convertFromRaw({
             entityMap: {},
             blocks
-        })
+        } as RawDraftContentState)
         console.log(Draft.convertToRaw(contentState))
         const editorState = EditorState.createWithContent(contentState)
         this.setState({editorState})
     }
 
-  render() {
+  render(): JSX.Element {
     return (
       <Editor
         editorState={this.state.editorState}
         onChange={this.onChange}
         plugins={[prismPlugin, codePlugin]}
       />
-    );  
+    );
   }
 }

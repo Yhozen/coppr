@@ -4,9 +4,9 @@ import Toolbar from './Toolbar'
 import Sortable from 'sortablejs'
 import CodeEditor from './CodeEditor'
 
-const open = [ 'Google', 'Apple', 'Facebook', 'ChromeStackoverflow', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow']
+const open: string[] = [ 'Google', 'Apple', 'Facebook', 'ChromeStackoverflow', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow', 'Google', 'Apple', 'Facebook', 'Chrome', 'Flexbox', 'Stackoverflow']
 
-const OpenTabs = props => {
+const OpenTabs: React.FC = () => {
   return (
     <div id="opentabs">
       {open.map(title => {
@@ -20,15 +20,19 @@ const OpenTabs = props => {
 
 
 export default class Login extends Component {
-  componentDidMount () {
+  componentDidMount (): void {
     const toolbar = document.getElementById('toolbar')
     const opentabs = document.getElementById('opentabs')
-   
-    Sortable.create(toolbar)
-    Sortable.create(opentabs)
-    opentabs.addEventListener("mousewheel", mouseWheelEvt)
+
+    if (toolbar) {
+      Sortable.create(toolbar)
+    }
+    if (opentabs) {
+      Sortable.create(opentabs)
+      opentabs.addEventListener("mousewheel", mouseWheelEvt)
+    }
   }
-  render () {
+  render (): JSX.Element {
     return (
       <div className="flexgrid">
         <Toolbar/>
@@ -41,12 +45,16 @@ export default class Login extends Component {
   }
 }
 
-function mouseWheelEvt (event) {
-  let { target, deltaY, preventDefault } = event
-  target.parentElement.scrollLeft += deltaY
+function mouseWheelEvt (event: WheelEvent): void {
+  const { target, deltaY } = event
+  if (target instanceof HTMLElement && target.parentElement) {
+    target.parentElement.scrollLeft += deltaY
+  }
   event.preventDefault()
 }
-function clickTab ({target}) {
+
+function clickTab (event: React.MouseEvent<HTMLDivElement>): void {
+  const target = event.target as HTMLElement
   const previous = document.getElementsByClassName('active')
   if (!!previous.length) previous[0].classList.remove('active')
   target.classList.add('active')

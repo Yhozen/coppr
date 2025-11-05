@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-const files = [ 'home.js', 'news.js', 'contact.js', 'about.js' ]
+const files: string[] = [ 'home.js', 'news.js', 'contact.js', 'about.js' ]
 
 export default class Toolbar extends Component {
-    render () {
+    render (): JSX.Element {
         return (
             <ul id="toolbar">
                 {files.map(file => {
@@ -11,8 +11,7 @@ export default class Toolbar extends Component {
                   <li key={Math.random()}><a>{file}</a></li>
                   )
                 })}
-            </ul> 
+            </ul>
           )
     }
 }
-  
